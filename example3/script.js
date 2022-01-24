@@ -19,8 +19,8 @@ function init() {
 				scene.background = new THREE.Color().setHSL( 0.6, 0, 1 );
 				scene.fog = new THREE.Fog( scene.background, 1, 5000 )
                 scene.add( new THREE.AmbientLight( 0x999999 ) );
-    camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 )
-    camera.position.y = - 100
+    camera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 0.1, 1000 )
+    camera.position.y = 100
 
     // create the renderer and add it to the html
     renderer = new THREE.WebGLRenderer( { antialias: true } )
@@ -30,6 +30,17 @@ function init() {
     const controls = new OrbitControls( camera, renderer.domElement )
 
     raycaster = new THREE.Raycaster()
+
+    // lights
+			const hemiLight = new THREE.HemisphereLight( 0x443333, 0x111122 );
+			scene.add( hemiLight );
+
+			const spotLight = new THREE.SpotLight();
+			spotLight.angle = Math.PI / 16;
+			spotLight.penumbra = 0.5;
+			spotLight.castShadow = true;
+			spotLight.position.set( - 1, 1, 1 );
+			scene.add( spotLight );
 
     const loader = new Rhino3dmLoader()
     loader.setLibraryPath( 'https://cdn.jsdelivr.net/npm/rhino3dm@0.13.0/' )
