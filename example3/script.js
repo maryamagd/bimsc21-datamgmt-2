@@ -15,8 +15,10 @@ function init() {
     THREE.Object3D.DefaultUp = new THREE.Vector3( 0, 0, 1 )
 
     // create a scene and a camera
-    scene = new THREE.Scene()
-    scene.background = new THREE.Color(1,1,1)
+    scene = new THREE.Scene();
+				scene.background = new THREE.Color().setHSL( 0.6, 0, 1 );
+				scene.fog = new THREE.Fog( scene.background, 1, 5000 )
+                scene.add( new THREE.AmbientLight( 0x999999 ) );
     camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 )
     camera.position.y = - 100
 
@@ -26,12 +28,6 @@ function init() {
     document.body.appendChild( renderer.domElement )
 
     const controls = new OrbitControls( camera, renderer.domElement )
-
-    const directionalLight = new THREE.DirectionalLight( 0xffffff )
-    directionalLight.position.set( 0, 0, 2 )
-    directionalLight.castShadow = true
-    directionalLight.intensity = 2
-    scene.add( directionalLight )
 
     raycaster = new THREE.Raycaster()
 
@@ -79,7 +75,7 @@ function onClick( event ) {
         const object = intersects[0].object
         console.log(object) // debug
 
-        object.material.color.set( 'yellow' )
+        object.material.color.set( 'lightblue' )
 
         // get user strings
         let data, count
