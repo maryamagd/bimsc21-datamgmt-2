@@ -4,8 +4,14 @@
 		<meta charset="utf-8">
 		<title>Canopy Maker</title>
 		<style>
-             body { margin: 0; }
+             body { margin: 0;
+             background-color: #fff;
+				color: #222;
+			}
 
+			a {
+				color: #08f;
+			}
 			/* CSS for a spinning animation */ 
 			#loader {
                 border: 5px solid #f3f3f3; /* Light grey */
@@ -28,10 +34,10 @@
             #container {
                 position: absolute;
                 z-index: 100;
-                top: 0;
-                margin: 10px;
+                top: 200px;
+                margin-left: 75%;
                 padding: 10px;
-                background-color: rgba(25, 120, 175, 0.534);
+                background-color: rgba(122, 93, 50, 0.534);
                 color: white;
                 width: 250px;
                 font-family: monospace;
@@ -42,9 +48,14 @@
                 border-left: 1px solid white;
                 padding: 10px;
             }
+            #info {background-color: rgb(31, 39, 56);color:white;}
 		</style>
 	</head>
 	<body>
+        <div id="info">
+			<h1>Canopy Maker</h1>
+			<p>Developed in MaCAD for IaaC by Maryam Deshmukh</p>
+        </div>
 		<div id="loader"></div>
         <script type="module" src="./script.js"></script>
 	</body>

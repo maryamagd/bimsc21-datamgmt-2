@@ -15,12 +15,27 @@ function init() {
     THREE.Object3D.DefaultUp = new THREE.Vector3( 0, 0, 1 )
 
     // create a scene and a camera
-    scene = new THREE.Scene();
-				scene.background = new THREE.Color().setHSL( 0.6, 0, 1 );
-				scene.fog = new THREE.Fog( scene.background, 1, 5000 )
-                scene.add( new THREE.AmbientLight( 0x999999 ) );
-    camera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 0.1, 1000 )
-    camera.position.y = 100
+    camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 300 );
+				camera.position.set( 100, 200, 200 );
+
+				scene = new THREE.Scene();
+				scene.background = new THREE.Color( 0xa0a0a0 );
+				scene.fog = new THREE.Fog( 0xa0a0a0, 200, 1000 );
+
+				//
+
+				const hemiLight = new THREE.HemisphereLight( 0xffffff, 0x222222, 1.5 );
+				hemiLight.position.set( 1, 1, 1 );
+				scene.add( hemiLight );
+
+
+				// scene.add( new THREE.CameraHelper( dirLight.shadow.camera ) );
+
+				const grid = new THREE.GridHelper( 2000, 20, 0x000000, 0x000000 );
+				grid.material.opacity = 0.2;
+                grid.rotation.x = - Math.PI / 2;
+				grid.material.transparent = true;
+				scene.add( grid );
 
     // create the renderer and add it to the html
     renderer = new THREE.WebGLRenderer( { antialias: true } )
@@ -30,17 +45,6 @@ function init() {
     const controls = new OrbitControls( camera, renderer.domElement )
 
     raycaster = new THREE.Raycaster()
-
-    // lights
-			const hemiLight = new THREE.HemisphereLight( 0x443333, 0x111122 );
-			scene.add( hemiLight );
-
-			const spotLight = new THREE.SpotLight();
-			spotLight.angle = Math.PI / 16;
-			spotLight.penumbra = 0.5;
-			spotLight.castShadow = true;
-			spotLight.position.set( - 1, 1, 1 );
-			scene.add( spotLight );
 
     const loader = new Rhino3dmLoader()
     loader.setLibraryPath( 'https://cdn.jsdelivr.net/npm/rhino3dm@0.13.0/' )
@@ -86,7 +90,7 @@ function onClick( event ) {
         const object = intersects[0].object
         console.log(object) // debug
 
-        object.material.color.set( 'lightblue' )
+        object.material.color.set( 'yellow' )
 
         // get user strings
         let data, count
